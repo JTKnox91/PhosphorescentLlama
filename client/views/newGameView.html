@@ -1,0 +1,27 @@
+<!-- <!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body ng-app="app"> -->
+
+  <div ng-controller="NewGameController">
+    
+    <header>New Game</header>
+
+    <input ng-model="search" type="text">
+    
+    <table> 
+      <tr ng-repeat="user in users | filter:search">
+        <td ng-click="challenge(user)">{{ user }}</td>
+      </tr>
+    </table>
+
+  </div>
+
+<!-- <script src="../../node_modules/angular/angular.min.js"></script>
+<script src="../app/controllers/newGameController.js"></script>
+
+
+</body>
+</html> -->
