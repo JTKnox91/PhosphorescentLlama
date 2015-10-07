@@ -10,8 +10,8 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var port = process.env.PORT || 44100;
 var connectURI;
-if( process.env.PORT ) {
-  connectURI = 'mongodb://heroku_65zhsf5d:4akorlp2tcl6mfatm608iio30n@ds029224.mongolab.com:29224/heroku_65zhsf5d';
+if( process.env ) {
+  connectURI = process.env.MONGOLAB_URI;
 } else {
   connectURI = 'mongodb://localhost/ngtzit';
 }
