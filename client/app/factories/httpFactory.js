@@ -105,6 +105,12 @@ app.factory( 'httpFactory', [ '$http', function ( $http ) {
       });
   };
 
+  httpFact.updateMatch = function (matchId, updateObj) {
+    return $http.put('/match/'+ matchId, updateObj)
+      .then(function (res) {
+        return res.data;
+      });
+  };
 
   return httpFact;
 
