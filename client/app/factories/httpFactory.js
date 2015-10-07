@@ -77,7 +77,26 @@ app.factory( 'httpFactory', [ '$http', function ( $http ) {
   };
 
   // New methods for multiplayer Beats with Friends
-  httpFact.
+  httpFact.getMatches = function () {
+    return $http.get('/match')
+      .then(function (res) {
+        return res.data;
+      });
+  };
+
+  httpFact.getMatch = function (matchId) {
+    return $http.get('/match/'+matchId)
+      .then(function (res) {
+        return res.data;
+      });
+  };
+
+  httpFact.newMatch = function (otherId) {
+    return $http.post('/match', {otherId: otherId})
+      .then(function (res) {
+        return res.data;
+      });
+  };
 
   return httpFact;
 
