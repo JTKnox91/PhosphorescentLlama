@@ -68,9 +68,12 @@
 
           <span id="space"></span>
 
-          <div id="display-username">
+          <div id="display-username" ng-init="getMatchInfo()">
 
             <h2>{{ user.username }}. Level: {{ user.level }}</h2>
+            <span>Score: {{ user.totalScore }} </span><span>Score: {{ user.oppScore }} </span>
+            <span>Plays: {{ user.plays }} </span>
+            <span>Fails: {{ user.fails }} </span>
 
             <button class="btn btn-default" ng-click="logout( )" id="display-logout">Logout</button>
 

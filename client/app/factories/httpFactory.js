@@ -107,4 +107,5 @@ app.factory( 'httpFactory', [ '$http', function ( $http ) {
 
   return httpFact;
 
+
 }]);

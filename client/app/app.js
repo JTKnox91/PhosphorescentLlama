@@ -4,13 +4,21 @@ app.config( function ( $stateProvider, $urlRouterProvider ) {
   $stateProvider
     .state( '/', {
       views: {
-        nav: {
-          templateUrl: 'client/views/navView.html',
-          controller: 'NavController'
-        },
+
+        // nav: {
+
+        //   templateUrl: 'client/views/navView.html',
+
+        //   controller: 'NavController'
+
+        // },
+
         content: {
-          templateUrl: 'client/views/gameView.html',
-          controller: 'GameController'
+
+          templateUrl: 'client/views/login.html',
+
+          controller: 'NavController'
+
         }
       },
       url: '/'
