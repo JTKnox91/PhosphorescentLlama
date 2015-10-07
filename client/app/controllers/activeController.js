@@ -1,4 +1,4 @@
-app.controller( 'ActiveController', ['$scope', 'httpFactory', '$rootScope', '$location' , function ( $scope, httpFactory, $rootScope, $location ) {
+app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootScope', '$location' , function ( $state, $scope, httpFactory, $rootScope, $location ) {
   $scope.logout = function ( ) {
     httpFactory.logout( function ( response ) {
       $rootScope.user = null;
@@ -50,5 +50,14 @@ app.controller( 'ActiveController', ['$scope', 'httpFactory', '$rootScope', '$lo
     .catch( function (error) {
       console.error(error);
     });
-  }
+  };
+
+  $scope.goToNewMatch = function () {
+    $state.go('/new-match')
+  };
+
+  $scope.goToCurrentMatches = function () {
+    $state.go('/matches');
+  };
+
 }]);
