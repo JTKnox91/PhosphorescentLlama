@@ -101,5 +101,4 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
       console.error(error);
     });
   };
-
 }]);
