@@ -4,6 +4,7 @@ var paths = require( '../../paths.js' );
 var Sequencer = require( paths.models + '/sequencerModel.js');
 var levelsController = require( paths.controllers + '/levelsController.js' );
 var usersController = require( paths.controllers + '/usersController.js' );
+var matchController = require( paths.controllers + '/matchController.js' );
 
 module.exports = function( passport ) {
   router.use( levelsController.getLastLevel );
@@ -65,8 +66,8 @@ module.exports = function( passport ) {
   router.delete( '/levels/:id', levelsController.deleteLevel );
   router.put( '/levels', levelsController.updateLevel );
 
-  router.get('/match', matchController.getAllMatches );
   router.post('/match', matchController.createMatch );
+  router.get('/match', matchController.getAllMatches );
   router.get('/match/:id', matchController.getMatchById );
   router.put('/match/:id', matchController.updateMatch );
 
