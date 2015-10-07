@@ -66,6 +66,11 @@ module.exports = function( passport ) {
   router.delete( '/levels/:id', levelsController.deleteLevel );
   router.put( '/levels', levelsController.updateLevel );
 
+  router.get('/match', matchController.getAllMatches );
+  router.post('/match', matchController.createMatch );
+  router.get('/match/:id', matchController.getMatchById );
+  router.put('/match/:id', matchController.updateMatch );
+
   return router;
 
 };
