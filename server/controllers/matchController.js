@@ -10,6 +10,7 @@ matchController.getAllMatches = function(req, res) {
         return true;
       }
     }
+    return false;
   }).exec(function(err, matches) {
     if(err){
       res.status(404).send(err);
