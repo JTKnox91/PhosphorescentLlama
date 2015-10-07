@@ -11,7 +11,8 @@ matchController.getAllMatches = function(req, res) {
       }
     }
     return false;
-  }).exec(function(err, matches) {
+  }).populate('users.id')
+    .exec(function(err, matches) {
     if(err){
       res.status(404).send(err);
     } else {
@@ -30,7 +31,7 @@ matchController.getMatchById = function(req, res) {
   });
 };
 
-matchController.createMatch = function(req, res) {
+matchController.createMatch = function(req, res, next) {
   Match.create({
     open: false,
     users: [
@@ -52,6 +53,8 @@ matchController.createMatch = function(req, res) {
       fails: false,
       won: false
     }]
+  }).then(function (match) {
+    req.status(201).send(match);
   });
 };
 

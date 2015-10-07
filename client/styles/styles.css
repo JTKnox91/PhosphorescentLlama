@@ -251,7 +251,7 @@ body {
 
   overflow-y: hidden;
 
-  background-color: black;
+  background-color: grey;
 
 }
 
@@ -373,7 +373,7 @@ div {
 
   width: 100vw;
 
-  height: 100vw;
+  height: 100vh;
 
 }
 

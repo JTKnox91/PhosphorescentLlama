@@ -7,7 +7,7 @@
       <div class="sequence {{ sequencer.beatClass }}" ng-repeat="sequence in sequences | orderBy: $index"
       >
 
-        <div class="beat {{sequencer.beatClass}}"
+        <div class="beat {{ sequencer.beatClass }}"
 
         ng-repeat="beat in sequence._beats"
 
@@ -20,32 +20,5 @@
     </div>
 
   </div>
-
-    <form class="save">
-
-      <div class="form">
-
-        <input type="text" placeholder="input a level" name="level" ng-model="inputLevel"></input>
-
-      </div>
-
-      <button class="submit" ng-click="saveToDatabase( )">Save to Database</button>
-
-    </form>
-
-    <form class="create">
-
-      <div class="form">
-
-        <input type="text" placeholder="tempo" name="tempo" ng-model="inputTempo"></input>
-
-        <input type="text" placeholder="number of beats" name="beats" ng-model="inputBeats"></input>
-
-        <input type="text" placeholder="sounds" name="sounds" ng-model="inputSounds"></input>
-
-      </div>
-
-      <button class="submit" ng-click="createSequencer( )">Create a Sequencer</button>
-    </form>
 
 </div>

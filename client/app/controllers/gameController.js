@@ -182,7 +182,7 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
 
   initialize( $scope.startLevel );
 
-
+  
   //BELOW HERE ARE ALL TEMPORARY FUNCTIONS THAT WON'T BE NEEDED ONCE WE ARE RETRIEVING SOUNDS PROPERLY
   $scope.buildLevel = function ( ) {
 
