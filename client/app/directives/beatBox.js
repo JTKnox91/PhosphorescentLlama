@@ -1,13 +1,7 @@
-app.directive('beatBox', function ( ) {
-
-	return {
-
-		templateUrl: 'client/views/beat-box.html',
-
-		replace: true,
-
-		restrict: 'E'
-
-	};
-
+app.directive('beatbox', function ( ) {
+  return {
+    templateUrl: 'client/views/game/beatbox.html',
+    replace: true,
+    restrict: 'E'
+  };
 });

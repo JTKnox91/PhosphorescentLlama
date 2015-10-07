@@ -1,0 +1,7 @@
+<!--An individual box for a note-->
+<div class="beat-box">
+  <div
+    class="line inner _{{ $parent.$index }} {{ $index }}"
+    ng-class="{ playing: sequencer.getBeat($parent.$index, $index).isOn( ) }"
+  ></div>
+</div>

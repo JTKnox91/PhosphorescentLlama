@@ -1,0 +1,11 @@
+<!--All beatboxes wrapped together-->
+<div class="targetSequencer padding-{{ numSequencers }}" ng-controller="TargetSequencerController"></div>
+<div class="playerSequencer" ng-controller="PlayerSequencerController">
+  <div class="sequence eight" ng-repeat="sequence in sequences | orderBy: $index">
+    <div class="beat eight"
+        ng-repeat="beat in sequence._beats"
+        ng-click="toggleBeat($parent.$index, $index)">
+      <beatbox></beatbox>
+    </div>
+  </div>
+</div>
