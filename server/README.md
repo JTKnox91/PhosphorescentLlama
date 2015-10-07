@@ -4,13 +4,12 @@ Server:
 REST API:
 ---------
 
-```
-Method | URL         | Request Body | Response Body |
-GET    | /levels/:id | Empty        | JSON string   |
-POST   | /levels     | JSON string  | Empty         |
-PUT    | /levels     | JSON String  | Empty         |
-DELETE | /levels/:id | Empty        | Empty         |
-```
+| Method | URL         | Request Body | Response Body |
+|--------|-------------|--------------|---------------|
+| POST   | /levels     | JSON string  | Empty         |
+| PUT    | /levels     | JSON String  | Empty         |
+| GET    | /levels/:id | Empty        | JSON string   |
+| DELETE | /levels/:id | Empty        | Empty         |
 
 ### General
 Inside the file `/server/controllers/levelsController.js`, there are four methods; getLevel, saveLevel, updateLeve, and deleteLevel. They are exported and used as the server API.
