@@ -11,6 +11,9 @@ REST API:
 | GET    | /levels/:id | Empty        | JSON string   |
 | DELETE | /levels/:id | Empty        | Empty         |
 
+### General
+Inside the file `/server/controllers/levelsController.js`, there are four methods; getLevel, saveLevel, updateLeve, and deleteLevel. They are exported and used as the server API.
+
 | Method | URL         | Purpose                  | Request Body         | Response Body     |
 |--------|-------------|--------------------------|----------------------|-------------------|
 | GET    | /match      | Get all matches for user | Empty                | Array of Matches  |
@@ -18,8 +21,15 @@ REST API:
 | GET    | /match/:id  | Get match details        | Empty                | Match info object |
 | UPDATE | /match/:id  | Update single match      | Match options object | Match info object |
 
-### General
-Inside the file `/server/controllers/levelsController.js`, there are four methods; getLevel, saveLevel, updateLeve, and deleteLevel. They are exported and used as the server API.
+### Match options object
+
+```json
+currentLevel: Number
+play: Boolean
+fail: Boolean
+forfeit: Boolean
+endLevel: Boolean
+```
 
 | Method | URL         | Purpose                  | Request Body         | Response Body     | httpFactory method |
 |--------|-------------|--------------------------|----------------------|-------------------|--------------------|
