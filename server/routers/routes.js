@@ -45,7 +45,6 @@ module.exports = function( passport ) {
 
   /* Handle requests to '/users' */
 
-  router.put( '/users', usersController.updateLevel );
   router.get( '/users', usersController.findUserById, function ( request, response ) {
 
     if( response.get( 'username' ) ) {
