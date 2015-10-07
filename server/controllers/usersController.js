@@ -2,43 +2,25 @@ var User = require('../models/userModel.js');
 
 var controller = {};
 
-controller.updateLevel = function( request, response ) {
-  User.findOneAndUpdate(
-    {"username": request.body.username},
-    {$set: {"level": request.body.level}},
-    {new:true},
-    function(error, user){
-      if (error){
-        throw error;
-      } else {
-        response.status( 200 ).send( user );
-      }
-    });
-};
-
 // A custom middleware for Passport
-controller.findUserById = function( request, response, next ) {
+controller.findUserById = function( req, res, next ) {
   var id;
-  if (request.session.passport) {
-    if( request.session.passport.user ) {
-      console.log( 'USER IS: ', request.session.passport.user );
+  if (req.session.passport) {
+    if( req.session.passport.user ) {
+      console.log( 'USER IS: ', req.session.passport.user );
     }
-    id = request.session.passport.user;
+    id = req.session.passport.user;
   }
 
-  User.findOne({"_id": id}, "username level", function(error, user){
+  User.findById(id, function(error, user){
       if (error) {
-        throw error;
-      } else if (!user) {
-        next();
-      } else {
-        response.set({
-          username: user.username,
-          level: user.level
-        });
+        res.status(404).send('Error: Passport session user not found');
+      } else if(!user){
         next();
       }
-    });
+        res.set(user);
+        next();
+      });
 };
 
 controller.getUsers = function ( request, response, next ) {
