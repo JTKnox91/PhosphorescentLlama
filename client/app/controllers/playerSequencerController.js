@@ -2,13 +2,10 @@ app.controller( 'PlayerSequencerController', [ '$scope', 'playerSequencer', '$ti
 
   //change tickNumber to word so that CSS class works properly
   var numToWord = {
-
     '4': 'four',
 
     '8': 'eight',
-
     '16': 'sixteen'
-
   };
 
   $scope.currentColumn = 0;

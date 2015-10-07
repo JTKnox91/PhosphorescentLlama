@@ -1,6 +1,6 @@
 var app = angular.module( 'app', [ 'ui.router', 'ngAnimate'] );
 app.config( function ( $stateProvider, $urlRouterProvider ) {
-  // $urlRouterProvider.otherwise( '/' );
+  $urlRouterProvider.otherwise( '/' );
   $stateProvider
     .state( '/login', {
       views: {
