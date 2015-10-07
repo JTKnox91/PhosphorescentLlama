@@ -3,7 +3,14 @@ var Match = require('../models/matchModel.js');
 var matchController = {};
 
 matchController.getAllMatches = function(req, res) {
-  Match.find({}, function(err, matches) {
+  var userId = req.session.passport.user;
+  Match.find().$where(function () {
+    for (var i = 0; i < this.users.length; i++) {
+      if (this.users[i] === userId) {
+        return true;
+      }
+    }
+  }).exec(function(err, matches) {
     if(err){
       res.status(404).send(err);
     } else {
@@ -57,7 +64,7 @@ matchController.updater = function(matchObject, req) {
       if(matchObject.users[i].currentLevel !== req.body.currentLevel) {
         matchObject.users[i].totalScore += matchObject.users[i].levelScore;
         matchObject.users[i].currentLevel = req.body.currentLevel;
-        matchObject.users[i].levelScore = 100 + req.body.currentLevel * 20;        
+        matchObject.users[i].levelScore = 100 + req.body.currentLevel * 20;
       }
 
     } else {
@@ -66,7 +73,7 @@ matchController.updater = function(matchObject, req) {
   }
   matchObject.open = !req.body.forfeit;
   return matchObject;
-}
+};
 
 matchController.updateMatch = function(req, res) {
   Match.findById(req.params.id, function(err, match) {
@@ -84,3 +91,5 @@ matchController.updateMatch = function(req, res) {
     }
   });
 };
+
+module.exports = matchController;

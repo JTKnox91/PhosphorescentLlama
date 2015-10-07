@@ -17,10 +17,11 @@ controller.findUserById = function( req, res, next ) {
         res.status(404).send('Error: Passport session user not found');
       } else if(!user){
         next();
-      }
+      } else {
         res.set(user);
         next();
-      });
+      }
+    });
 };
 
 controller.getUsers = function ( request, response, next ) {
