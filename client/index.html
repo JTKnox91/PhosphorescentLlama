@@ -2,8 +2,8 @@
 <html>
   <head>
     <title>ngtzit</title>
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
-    <link rel="stylesheet" href="client/styles/styles.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="styles/styles.css">
   </head>
   <body ng-app="app" ng-controller="ViewController">
 
@@ -19,38 +19,34 @@
 
     <!-- SCRIPTS -->
     <!-- these will get minimized for deployment; we'll need to change these to the minified scripts -->
-    <script src="node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="node_modules/angular/angular.min.js"></script>
-    <script src="node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="node_modules/angular-animate/angular-animate.min.js"></script>
-    <script src="node_modules/underscore/underscore-min.js"></script>
-    <script src="client/app/classes/Beat.js"></script>
-    <script src="client/app/classes/Sequence.js"></script>
-    <script src="client/app/classes/Bus.js"></script>
-    <script src="client/app/classes/Sequencer.js"></script>
-    <script src="client/app/synthesis/Envelope.js"></script>
-    <script src="client/app/synthesis/WhiteNoise.js"></script>
-    <script src="client/app/synthesis/Synthesizer.js"></script>
-    <script src="client/app/synthesis/Kick.js"></script>
-    <script src="client/app/synthesis/Clap.js"></script>
-    <script src="client/app/synthesis/ClosedHat.js"></script>
-    <script src="client/app/synthesis/OpenHat.js"></script>
-    <script src="client/app/synthesis/Bass.js"></script>
-    <script src="client/app/app.js"></script>
-
-    <script src="client/app/directives/beatBox.js"></script>
-
-    <script src="client/app/controllers/viewController.js"></script>
-    <script src="client/app/controllers/navController.js"></script>
-    <script src="client/app/controllers/activeController.js"></script>
-    <script src="client/app/controllers/gameController.js"></script>
-    <script src="client/app/controllers/playerSequencerController.js"></script>
-    <script src="client/app/controllers/targetSequencerController.js"></script>
-    <script src="client/app/controllers/newGameController.js"></script>
-
-    <script src="client/app/factories/initializationFactory.js"></script>
-    <script src="client/app/factories/httpFactory.js"></script>
-    <script src="client/app/factories/playerSequencerFactory.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
+    <script src="app/classes/Beat.js"></script>
+    <script src="app/classes/Sequence.js"></script>
+    <script src="app/classes/Bus.js"></script>
+    <script src="app/classes/Sequencer.js"></script>
+    <script src="app/synthesis/Envelope.js"></script>
+    <script src="app/synthesis/WhiteNoise.js"></script>
+    <script src="app/synthesis/Synthesizer.js"></script>
+    <script src="app/synthesis/Kick.js"></script>
+    <script src="app/synthesis/Clap.js"></script>
+    <script src="app/synthesis/ClosedHat.js"></script>
+    <script src="app/synthesis/OpenHat.js"></script>
+    <script src="app/synthesis/Bass.js"></script>
+    <script src="app/app.js"></script>
+    <script src="app/directives/beatBox.js"></script>
+    <script src="app/controllers/viewController.js"></script>
+    <script src="app/controllers/navController.js"></script>
+    <script src="app/controllers/activeController.js"></script>
+    <script src="app/controllers/gameController.js"></script>
+    <script src="app/controllers/playerSequencerController.js"></script>
+    <script src="app/controllers/targetSequencerController.js"></script>
+    <script src="app/factories/initializationFactory.js"></script>
+    <script src="app/factories/httpFactory.js"></script>
+    <script src="app/factories/playerSequencerFactory.js"></script>
   </body>
 </html>
