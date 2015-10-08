@@ -76,7 +76,10 @@ app.factory( 'httpFactory', [ '$http', function ( $http ) {
     });
   };
 
-  // New methods for multiplayer Beats with Friends
+  ////////////////////////////////////////////////////
+  // New methods for multiplayer Beats with Friends //
+  ////////////////////////////////////////////////////
+
   httpFact.getAllUsers = function () {
     return $http.get('/users/all')
       .then(function (res) {

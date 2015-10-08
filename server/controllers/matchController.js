@@ -11,7 +11,7 @@ matchController.getAllMatches = function(req, res) {
       }
     }
     return false;
-  }).populate('users.id')
+  }).populate('users.username')
     .exec(function(err, matches) {
     if(err){
       res.status(404).send(err);
@@ -22,7 +22,7 @@ matchController.getAllMatches = function(req, res) {
 };
 
 matchController.getMatchById = function(req, res) {
-  Match.find({_id: req.params.id}, function(err, match) {
+  Match.find({_id: req.params.id}).populate('users.username', function(err, match) {
     if(err){
       res.status(404).send(err);
     } else {

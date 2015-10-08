@@ -18,7 +18,9 @@ controller.findUserById = function( req, res, next ) {
       } else if(!user){
         next();
       } else {
-        res.set(user);
+        res.set({
+          userId: id
+        });
         next();
       }
     });
