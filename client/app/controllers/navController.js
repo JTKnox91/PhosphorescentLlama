@@ -3,14 +3,14 @@ app.controller('NavController', [ '$scope', 'AuthFactory', '$rootScope', '$state
   $scope.login = function ( ) {
     AuthFactory.login($scope.user)
       .then(function () {
-        $state.go('/game');
+        $state.go('/matches');
       });
   };
 
   $scope.signup = function ( ) {
     AuthFactory.signup($scope.user)
       .then(function () {
-        $state.go('/game');
+        $state.go('/new-match');
       });
   };
 
