@@ -5,10 +5,10 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
   var timer = $interval(function() {
       if ($scope.seconds == '59') {
         $scope.minutes++;
-        $scope.seconds = '00'
+        $scope.seconds = '00';
       } else {
         if( (Number($scope.seconds) + 1) < 10 ) {
-          $scope.seconds = '0' + (Number($scope.seconds) + 1)
+          $scope.seconds = '0' + (Number($scope.seconds) + 1);
         } else {
           $scope.seconds = (Number($scope.seconds) + 1);
         }
@@ -43,11 +43,11 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
       fail: true
     })
     .then( function (res) {
-      console.log('Success')
+      console.log('Success');
     })
     .catch( function (error) {
       console.error(error);
-    })
+    });
   };
 
   $scope.playing = true;
@@ -99,7 +99,7 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
     })
     .catch( function (error) {
       console.error(error);
-    })
+    });
   };
 
 }]);
