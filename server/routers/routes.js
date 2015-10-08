@@ -34,6 +34,7 @@ module.exports = function( passport ) {
 
   router.post( '/signup', passport.authenticate('signup', {
     failureRedirect: '/'
+  }), usersController.findUserById, function (req, res) {
     res.status(200).end();
   });
 
