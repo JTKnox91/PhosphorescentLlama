@@ -36,10 +36,6 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
 
   $scope.playerSequencerPlayToggle = function ( ) {
     $scope.$broadcast( 'playToggle' );
-    httpFactory($rootScope.currentMatchId.toString(), {
-      currentLevel: $rootScope.userid.currentLevel, 
-      play: true
-    }) // MJComment: PUT request
   };
 
   $scope.submit = function ( ) {
@@ -49,10 +45,6 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
       $scope.playerWonLevel( );
     } else {
       $scope.failedMatch( );
-      httpFactory($rootScope.currentMatchId.toString(), {
-        currentLevel: $rootScope.userid.currentLevel,
-        fail: true
-      });// MJComment: decrement points and other stuff here
     }
 
   };

@@ -11,6 +11,10 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
 
   $scope.playerSequencerPlayToggle = function ( ) {
     $rootScope.$broadcast( 'playToggle' );
+    httpFactory.updateMatch($rootScope.currentMatchId.toString(), {
+      currentMatchId: $rootScope.user.currentLevel,
+      play: true
+    });
   };
 
   $scope.targetSequencerPlayToggle = function ( ) {
@@ -19,6 +23,11 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
 
   $scope.submitMatch = function ( ) {
     $rootScope.$broadcast( 'submitMatch' );
+    console.log('submitMatch button clicked');
+    httpFactory.updateMatch($rootScope.currentMatchId.toString(), {
+      currentLevel: $rootscope.user.currentLevel,
+      fail: true
+    });
   };
 
   $scope.playing = true;
