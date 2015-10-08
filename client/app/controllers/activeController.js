@@ -23,11 +23,15 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
 
   $scope.submitMatch = function ( ) {
     $rootScope.$broadcast( 'submitMatch' );
-    console.log('submitMatch button clicked');
     httpFactory.updateMatch($rootScope.currentMatchId.toString(), {
       currentLevel: $rootscope.user.currentLevel,
       fail: true
-    });
+    })
+    .then( function (res) {
+      console.log('Success');
+    .catch( function (error) {
+      console.error(error);
+    })
   };
 
   $scope.playing = true;
@@ -73,9 +77,13 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
     httpFactory.updateMatch($rootScope.currentMatchId.toString(), {
       currentLevel: $rootScope.user.currentLevel,
       forfeit: true
-    }).then(function (){
-      this.goToCurrentMatches();
-    });
-  };
+    })
+    .then( function (matchInfo) {
+      $scope.goToCurrentMatches();
+    })
+    .catch( function (error) {
+      console.error(error);
+    })
+  };  
 
 }]);
