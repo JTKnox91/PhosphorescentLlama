@@ -438,9 +438,9 @@ div {
 
 .beat.eight {
 
-  height: 11vw;
+  height: 8vw;
 
-  width: 11vw;
+  width: 10vw;
 
 }
 
@@ -512,34 +512,48 @@ div {
 
 }
 
-._0, ._1, ._2 {
+._0, ._1, ._2, ._3 {
 
   opacity: .8;
 
 }
 
-._0:hover, ._1:hover, ._2:hover {
+._0:hover, ._1:hover, ._2:hover, ._3:hover {
 
   opacity: .9;
 
 }
 
-._0:hover, ._0.playing {
-
-  background-color: rgb(255, 49, 158);
-
+._0:hover {
+  background-color: lightgreen;
 }
 
-._1:hover, ._1.playing {
-
-  background-color: rgb(0, 251, 175);
-
+._0.playing {
+  background-color: green;
 }
 
-._2:hover, ._2.playing {
+._1:hover {
+  background-color: lightblue;
+}
 
-  background-color: rgb(253, 230, 0)
+._1.playing {
+  background-color: blue;
+}
 
+._2:hover {
+  background-color: lightyellow;
+}
+
+._2.playing {
+  background-color: yellow;
+}
+
+._3:hover {
+  background-color: red;
+}
+
+._3.playing {
+  background-color: darkred;
 }
 
 .playing {
