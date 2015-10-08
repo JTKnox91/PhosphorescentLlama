@@ -1,4 +1,20 @@
-app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootScope', '$location' , function ( $state, $scope, httpFactory, $rootScope, $location ) {
+app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootScope', '$location', '$interval' , function ( $state, $scope, httpFactory, $rootScope, $location, $interval ) {
+  $scope.minutes = 0;
+  $scope.seconds = '00';
+
+  var timer = $interval(function() {
+      if ($scope.seconds == '59') {
+        $scope.minutes++;
+        $scope.seconds = '00'
+      } else {
+        if( (Number($scope.seconds) + 1) < 10 ) {
+          $scope.seconds = '0' + (Number($scope.seconds) + 1)
+        } else {
+          $scope.seconds = (Number($scope.seconds) + 1);
+        }
+      }
+    }, 1000);
+
   $scope.logout = function ( ) {
     httpFactory.logout( function ( response ) {
       $rootScope.user = null;
