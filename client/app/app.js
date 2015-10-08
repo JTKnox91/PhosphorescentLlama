@@ -1,6 +1,6 @@
 var app = angular.module( 'app', [ 'ui.router', 'ngAnimate'] );
 app.config( function ( $stateProvider, $urlRouterProvider ) {
-  $urlRouterProvider.otherwise( '/' );
+  $urlRouterProvider.otherwise( '/login' );
   $stateProvider
     .state( '/login', {
       views: {
@@ -19,6 +19,7 @@ app.config( function ( $stateProvider, $urlRouterProvider ) {
         }
       },
       url: '/new-match',
+      authenticate: true
     })
     .state('/matches', {
       views: {
@@ -28,6 +29,7 @@ app.config( function ( $stateProvider, $urlRouterProvider ) {
         }
       },
       url: '/matches',
+      authenticate: true
     })
     .state( '/game', {
       views: {
@@ -40,20 +42,19 @@ app.config( function ( $stateProvider, $urlRouterProvider ) {
           controller: 'GameController'
         }
       },
-      url: '/game'
+      url: '/game',
+      authenticate: true
     });
+
 });
 
-// app.run( [ '$rootScope', 'httpFactory', '$location' , function ( $rootScope, httpFactory, $location ) {
-//   $rootScope.$on( '$locationChangeSuccess', function ( ) {
-//     httpFactory.getUser( function ( response ) {
-//       if( response.status === 200 ) {
-//         if( response.headers( 'username' ) ) {
-//           $rootScope.user = {};
-//           $rootScope.user.username = response.headers( 'username' );
-//         }
-//         $location.path( response.data );
-//       }
-//     });
-//   });
-// }]);
+app.run(function ($state, $rootScope, $location, AuthFactory) {
+  $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+    AuthFactory.isAuthenticated(function(loggedIn) {
+      if (toState.authenticate && !loggedIn) {
+        event.preventDefault();
+        $state.go('/login');
+      }
+    });
+  });
+});

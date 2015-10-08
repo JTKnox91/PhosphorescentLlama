@@ -25,14 +25,14 @@ module.exports = function( passport ) {
   /* Handle Login POST */
 
   router.post('/login', passport.authenticate('login', {
-    failureRedirect: '/' // anonymous user view.
+    failureRedirect: '/'
   }), usersController.findUserById, function (req, res) {
     res.status(200).end();
   });
 
   /* Handle Signup POST */
 
-  router.post( '/signup', passport.authenticate( 'signup', {
+  router.post( '/signup', passport.authenticate('signup', {
     failureRedirect: '/'
   }), usersController.findUserById, function (req, res) {
     res.status(200).end();
@@ -45,14 +45,9 @@ module.exports = function( passport ) {
   });
 
   /* Handle requests to '/users' */
-
-  // router.get( '/users', usersController.findUserById, function ( request, response ) {
-  //   if( response.get( 'username' ) ) {
-  //     response.status( 200 ).send( '/' );
-  //   } else {
-  //     response.status( 200 ).send( '/' );
-  //   }
-  // });
+  router.get( '/users', usersController.findUserById, function ( request, response ) {
+      response.status( 200 ).send();
+  });
 
   router.get( '/users/all', usersController.getUsers );
 

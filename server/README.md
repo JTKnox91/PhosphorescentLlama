@@ -32,6 +32,24 @@ forfeit: Boolean
 success: Boolean
 ```
 
+| Method | URL         | Purpose                  | Request Body         | Response Body     | httpFactory method |
+|--------|-------------|--------------------------|----------------------|-------------------|--------------------|
+| GET    | /match      | Get all matches for user | Empty                | Array of Matches  | getMatches         |
+| POST   | /match      | Create new chat          | JSON String          | matchId           | newMatch           |
+| GET    | /match/:id  | Get match details        | Empty                | Match info object | getMatch           |
+| UPDATE | /match/:id  | Update single match      | Match options object | Match info object | updateMatch        |
+
+### Match options object
+`currentLevel` is required. Other properties are optional.
+
+```
+currentLevel: Number
+play: Boolean
+fail: Boolean
+forfeit: Boolean
+success: Boolean
+```
+
 ### Match info object
 
 ```
