@@ -1,12 +1,11 @@
-app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootScope', '$location' , function ( $state, $scope, httpFactory, $rootScope, $location ) {
+app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootScope', '$location', 'AuthFactory' , function ( $state, $scope, httpFactory, $rootScope, $location, AuthFactory ) {
   $scope.logout = function ( ) {
-    httpFactory.logout( function ( response ) {
-      $rootScope.user = null;
-      if( response.status === 200 ) {
-        $location.path( response.data );
-        $rootScope.$broadcast( 'destroySequencers' );
-      }
-    });
+    AuthFactory.logout()
+      .then(function (res) {
+        if(res.status === 200){
+          $state.go('/login');
+        }
+      });
   };
 
   $scope.playerSequencerPlayToggle = function ( ) {
@@ -37,10 +36,10 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
     httpFactory.getMatch($rootScope.currentMatchId)
     .then( function (matchInfo) {
       var user = matchInfo.users.find(function (user) {
-        user._id === $rootScope.userid
+        return user._id === $rootScope.userId;
       });
       var opp = matchInfo.users.find(function (user) {
-        user._id !== $rootScope.userid
+        return user._id !== $rootScope.userId;
       });
       $scope.user.totalScore = matched.totalScore;
       $scope.user.plays = matched.plays;
@@ -53,7 +52,7 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
   };
 
   $scope.goToNewMatch = function () {
-    $state.go('/new-match')
+    $state.go('/new-match');
   };
 
   $scope.goToCurrentMatches = function () {

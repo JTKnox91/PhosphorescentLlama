@@ -1,79 +1,63 @@
-app.factory( 'httpFactory', [ '$http', function ( $http ) {
+app.factory( 'httpFactory', [ '$http', '$rootScope', function ( $http, $rootScope ) {
 
   //Sends request to server and retrieves sequencer for given level
   var httpFact = {};
 
   httpFact.getSequencer = function ( level, callback ) {
     return $http.get( '/levels/' + level.toString( ) )
-      .then( function( response ) {
+      .then( function( res ) {
         if( callback ) {
-          callback( response );
+          callback( res );
         }
       });
   };
 
   httpFact.postSequencer = function ( level, stringifiedSequencer, callback ) {
     return $http.post( '/levels/', { level: level, data: stringifiedSequencer } )
-      .then( function ( response ) {
+      .then( function ( res ) {
         if( callback ) {
-          callback( response );
+          callback( res );
         }
       });
   };
 
   httpFact.putSequencer = function ( level, stringifiedSequencer, callback ) {
     return $http.put( '/levels/', { level: level, data: stringifiedSequencer } )
-      .then( function ( response ) {
+      .then( function ( res ) {
         if( callback ) {
-          callback( response );
+          callback( res );
         }
       });
   };
 
-  httpFact.loginUser = function ( user, callback ) {
-    return $http.post( '/login', { username: user.username, password: user.password } )
-      .then( function ( response ) {
-        if ( callback ) {
-          callback( response );
-        }
-      });
+  //////////////////////////
+  ////  AUTHENTICATION  ////
+  //////////////////////////
+
+  httpFact.loginUser = function ( user ) {
+    return $http.post( '/login', { username: user.username, password: user.password } );
   };
 
-  httpFact.signupUser = function ( user, callback ) {
-    return $http.post( '/signup', { username: user.username, password: user.password } )
-      .then( function ( response ) {
-        if ( callback ) {
-          callback( response );
-        }
-      });
+  httpFact.signupUser = function ( user ) {
+    return $http.post( '/signup', { username: user.username, password: user.password } );
   };
 
   //TERRIBLY NAMED - THIS UPDATES A USER'S BEST LEVEL, NOT THE LEVEL ITSELF
   httpFact.updateLevel = function ( user, callback ) {
     return $http.put( '/users', { username: user.username, level: user.level } )
-      .then( function ( response ) {
+      .then( function ( res ) {
         if ( callback ) {
-          callback( response );
+          callback( res );
         }
       });
   };
 
   httpFact.getUser = function ( callback ) {
-    return $http.get( '/users' )
-      .then( function ( response ) {
-        if( callback ) {
-          callback( response );
-        }
-      });
+    return $http.get( '/auth' );
   };
 
-  httpFact.logout = function ( callback ) {
-    return $http.post( '/logout' )
-      .then( function ( response ) {
-        if ( callback ) {
-          callback( response );
-        }
-    });
+  httpFact.logout = function () {
+    return $http.post( '/logout' );
   };
 
   ////////////////////////////////////////////////////
