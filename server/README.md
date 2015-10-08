@@ -22,13 +22,14 @@ Inside the file `/server/controllers/levelsController.js`, there are four method
 | UPDATE | /match/:id  | Update single match      | Match options object | Match info object |
 
 ### Match options object
+`currentLevel` is required. Other properties are optional.
 
 ```json
 currentLevel: Number
 play: Boolean
 fail: Boolean
 forfeit: Boolean
-endLevel: Boolean
+success: Boolean
 ```
 
 ### GET to `/levels/:id`
