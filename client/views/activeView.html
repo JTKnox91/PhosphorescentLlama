@@ -34,6 +34,16 @@
             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
           </a>
         </li>
+        <li ng-click="canGoToNextLevel && startLevel()">
+          <a href="#">
+          <span class="glyphicon">
+            <span class="glyphicon-ok" aria-hidden="true"><br>
+              <span class="glyphicon-text">{{ nextButtonText }}
+              </span>
+            </span>
+          </span>
+          </a>
+        </li>
         <li ng-click="goToNewMatch( )">
           <a href="#">
             <span class="glyphicon glyphicon-cd" aria-hidden="true"></span>

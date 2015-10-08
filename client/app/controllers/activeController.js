@@ -26,7 +26,7 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
 
   $scope.playerSequencerPlayToggle = function ( ) {
     $rootScope.$broadcast( 'playToggle' );
-    httpFactory.updateMatch($rootScope.currentMatchId.toString(), {
+    httpFactory.updateMatch($rootScope.currentMatchId, {
       currentMatchId: $rootScope.user.currentLevel,
       play: true
     });
@@ -38,9 +38,9 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
 
   $scope.submitMatch = function ( ) {
     $rootScope.$broadcast( 'submitMatch' );
-    httpFactory.updateMatch($rootScope.currentMatchId.toString(), {
+    httpFactory.updateMatch($rootScope.currentMatchId, {
       currentLevel: $rootscope.user.currentLevel,
-      fail: true
+      fail: true // not necessarily true 
     })
     .then( function (res) {
       console.log('Success');
@@ -89,8 +89,9 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
     $state.go('/matches');
   };
 
-  $scope.forfeitMatch = function () { 
-    httpFactory.updateMatch($rootScope.currentMatchId.toString(), {
+
+  $scope.forfeitMatch = function () {
+    httpFactory.updateMatch($rootScope.currentMatchId, {
       currentLevel: $rootScope.user.currentLevel,
       forfeit: true
     })
@@ -99,6 +100,7 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
     })
     .catch( function (error) {
       console.error(error);
-    })
+    });
   };  
+
 }]);

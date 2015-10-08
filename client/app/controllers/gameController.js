@@ -13,7 +13,8 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
   } else {
     $scope.level = 1;
   }
-
+  $rootScope.nextButtonText = 'Waiting on opponent';
+  $rootScope.canGoToNext = false;
   /////////////////
   //
   //
@@ -22,7 +23,7 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
   //
   /////////////////
 
-  $scope.startLevel = function ( ) {
+  $rootScope.startLevel = function ( ) {
     $scope.getSequencer( );
   };
 
@@ -65,9 +66,28 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
       $scope.level++;
       if( $rootScope.user ) {
         $rootScope.user.level = $scope.level;
-        httpFactory.updateLevel( $rootScope.user );
+        httpFactory.updateMatch($rootScope.currentMatchId, {
+          currentLevel: $scope.level
+        })
+        .then( function (matchInfo) {
+          var user = matchInfo.users.find(function (user) {
+            return user._id === $rootScope.userId;
+          });
+          var opp = matchInfo.users.find(function (user) {
+            return user._id !== $rootScope.userId;
+          });
+          if(user.currentLevel <= opp.currentLevel) {
+            // enable the button
+            $rootScope.nextButtonText = 'Next Level';
+            $rootScope.canGoToNext = true;
+          } else {
+            $rootScope.nextButtonText = 'Waiting for opponent';
+            $rootScope.canGoToNext = false;
+          }
+        // httpFactory.updateLevel( $rootScope.user );
+      });
+      // $scope.startLevel( );
       }
-      $scope.startLevel( );
     }
   };
 
