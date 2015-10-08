@@ -2,7 +2,7 @@
   "name": "parrot",
   "version": "1.0.0",
   "description": "",
-  "main": "paths.js",
+  "main": "server/server.js",
   "engines": {
     "node": "0.12.7"
   },

@@ -1,43 +1,17 @@
-app.controller('NavController', [ '$scope', 'httpFactory', '$rootScope', '$state' , function ( $scope, httpFactory, $rootScope, $state ) {
+app.controller('NavController', [ '$scope', 'AuthFactory', '$rootScope', '$state' , function ( $scope, AuthFactory, $rootScope, $state ) {
 
   $scope.login = function ( ) {
-
-    httpFactory.loginUser( $scope.user, function ( response ) {
-
-      $rootScope.user = {};
-
-      if( response.status === 200 ) {
-
-        $rootScope.user.username = response.headers( 'username' );
-
-        $rootScope.user.level = response.headers( 'level' );
-
+    AuthFactory.login($scope.user)
+      .then(function () {
         $state.go('/game');
-
-      }
-
-    });
-
+      });
   };
 
   $scope.signup = function ( ) {
-
-    httpFactory.signupUser( $scope.user, function ( response ) {
-
-      $rootScope.user = {};
-
-      $rootScope.user.level = 1;
-
-      $rootScope.user.username = response.headers( 'username' );
-
-      if( response.status === 200 ) {
-
+    AuthFactory.signup($scope.user)
+      .then(function () {
         $state.go('/game');
-
-      }
-
-    });
-
+      });
   };
 
   $scope.playerSequencerPlayToggle = function ( ) {
