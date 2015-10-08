@@ -89,7 +89,7 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
     $state.go('/matches');
   };
 
-  $scope.forfeitMatch = function () {
+  $scope.forfeitMatch = function () { 
     httpFactory.updateMatch($rootScope.currentMatchId.toString(), {
       currentLevel: $rootScope.user.currentLevel,
       forfeit: true
@@ -99,6 +99,6 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
     })
     .catch( function (error) {
       console.error(error);
-    });
-  };
+    })
+  };  
 }]);
