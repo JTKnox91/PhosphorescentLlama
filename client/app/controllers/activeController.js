@@ -28,7 +28,8 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
       fail: true
     })
     .then( function (res) {
-      console.log('Success');
+      console.log('Success')
+    })
     .catch( function (error) {
       console.error(error);
     })
