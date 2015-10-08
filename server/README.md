@@ -24,13 +24,23 @@ Inside the file `/server/controllers/levelsController.js`, there are four method
 ### Match options object
 `currentLevel` is required. Other properties are optional.
 
-```json
+```
 currentLevel: Number
 play: Boolean
 fail: Boolean
 forfeit: Boolean
 success: Boolean
 ```
+
+### Match info object
+
+```
+_id: String, matchId
+open: Boolean, whether the match is still open
+users: {
+  username: String, name of user
+  levelScore: Number, score on current level
+}
 
 ### GET to `/levels/:id`
 getLevel method will handle a GET request made to `/levels/:id`. As a response, a corresponding sequencer data for the id will be retrieved from the database.
