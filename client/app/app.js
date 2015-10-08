@@ -44,17 +44,16 @@ app.config( function ( $stateProvider, $urlRouterProvider ) {
     });
 });
 
-app.run( [ '$rootScope', 'httpFactory', '$location' , function ( $rootScope, httpFactory, $location ) {
-  $rootScope.$on( '$locationChangeSuccess', function ( ) {
-    httpFactory.getUser( function ( response ) {
-      if( response.status === 200 ) {
-        if( response.headers( 'username' ) ) {
-          $rootScope.user = {};
-          $rootScope.user.username = response.headers( 'username' );
-          $rootScope.user.level = response.headers( 'level' );
-        }
-        $location.path( response.data );
-      }
-    });
-  });
-}]);
+// app.run( [ '$rootScope', 'httpFactory', '$location' , function ( $rootScope, httpFactory, $location ) {
+//   $rootScope.$on( '$locationChangeSuccess', function ( ) {
+//     httpFactory.getUser( function ( response ) {
+//       if( response.status === 200 ) {
+//         if( response.headers( 'username' ) ) {
+//           $rootScope.user = {};
+//           $rootScope.user.username = response.headers( 'username' );
+//         }
+//         $location.path( response.data );
+//       }
+//     });
+//   });
+// }]);
