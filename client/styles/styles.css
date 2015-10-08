@@ -526,20 +526,24 @@ div {
 
 ._0:hover, ._0.playing {
 
-  background-color: rgb(255, 49, 158);
+  background-color: green;
 
 }
 
 ._1:hover, ._1.playing {
 
-  background-color: rgb(0, 251, 175);
+  background-color: blue;
 
 }
 
 ._2:hover, ._2.playing {
 
-  background-color: rgb(253, 230, 0)
+  background-color: yellow;
 
+}
+
+._3:hover, ._3.playing {
+  background-color: red;
 }
 
 .playing {
