@@ -1,4 +1,4 @@
-app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootScope', '$location', '$interval' , function ( $state, $scope, httpFactory, $rootScope, $location, $interval ) {
+app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootScope', '$location', '$interval' , 'AuthFactory', function ( $state, $scope, httpFactory, $rootScope, $location, $interval, AuthFactory) {
   $scope.minutes = 0;
   $scope.seconds = '00';
 
@@ -16,13 +16,12 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
     }, 1000);
 
   $scope.logout = function ( ) {
-    httpFactory.logout( function ( response ) {
-      $rootScope.user = null;
-      if( response.status === 200 ) {
-        $location.path( response.data );
-        $rootScope.$broadcast( 'destroySequencers' );
-      }
-    });
+    AuthFactory.logout()
+      .then(function (res) {
+        if(res.status === 200){
+          $state.go('/login');
+        }
+      });
   };
 
   $scope.playerSequencerPlayToggle = function ( ) {
@@ -67,10 +66,10 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
     httpFactory.getMatch($rootScope.currentMatchId)
     .then( function (matchInfo) {
       var user = matchInfo.users.find(function (user) {
-        user._id === $rootScope.userid
+        return user._id === $rootScope.userId;
       });
       var opp = matchInfo.users.find(function (user) {
-        user._id !== $rootScope.userid
+        return user._id !== $rootScope.userId;
       });
       $scope.user.totalScore = matched.totalScore;
       $scope.user.plays = matched.plays;
@@ -83,14 +82,14 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
   };
 
   $scope.goToNewMatch = function () {
-    $state.go('/new-match')
+    $state.go('/new-match');
   };
 
   $scope.goToCurrentMatches = function () {
     $state.go('/matches');
   };
 
-  $scope.forfeitMatch = function () { 
+  $scope.forfeitMatch = function () {
     httpFactory.updateMatch($rootScope.currentMatchId.toString(), {
       currentLevel: $rootScope.user.currentLevel,
       forfeit: true
@@ -101,6 +100,6 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
     .catch( function (error) {
       console.error(error);
     })
-  };  
+  };
 
 }]);

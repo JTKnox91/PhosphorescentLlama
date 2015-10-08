@@ -19,7 +19,7 @@ controller.findUserById = function( req, res, next ) {
         next();
       } else {
         res.set({
-          userId: id
+          'userId': id
         });
         next();
       }
