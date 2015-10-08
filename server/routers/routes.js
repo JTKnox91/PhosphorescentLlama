@@ -27,7 +27,7 @@ module.exports = function( passport ) {
   router.post('/login', passport.authenticate('login', {
     failureRedirect: '/' // anonymous user view.
   }), usersController.findUserById, function ( request, response ) {
-    response.status( 200 ).send( '/active' );
+    response.status( 200 ).send( '/' );
   });
 
   /* Handle Signup POST */
@@ -35,7 +35,7 @@ module.exports = function( passport ) {
   router.post( '/signup', passport.authenticate( 'signup', {
     failureRedirect: '/'
   }), usersController.findUserById, function ( request, response ) {
-    response.status( 200 ).send( '/active' );
+    response.status( 200 ).send( '/' );
   });
 
   /* Handle Logout */
@@ -49,7 +49,7 @@ module.exports = function( passport ) {
   router.get( '/users', usersController.findUserById, function ( request, response ) {
 
     if( response.get( 'username' ) ) {
-      response.status( 200 ).send( '/active' );
+      response.status( 200 ).send( '/' );
     } else {
       response.status( 200 ).send( '/' );
     }
