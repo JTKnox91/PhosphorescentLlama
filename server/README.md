@@ -37,10 +37,16 @@ success: Boolean
 ```
 _id: String, matchId
 open: Boolean, whether the match is still open
-users: {
+users: Array, [{
   username: String, name of user
+  currentLevel: Number, the current level of the user
   levelScore: Number, score on current level
-}
+  totalScore: Number, total score for the match
+  plays: Number, number of replays of the sequence for the level
+  fails: Number, number of failed attempts at the game for the level
+  won: Boolean, whether the user has won the game or not
+}]
+```
 
 ### GET to `/levels/:id`
 getLevel method will handle a GET request made to `/levels/:id`. As a response, a corresponding sequencer data for the id will be retrieved from the database.
