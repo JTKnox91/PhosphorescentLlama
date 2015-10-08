@@ -24,7 +24,7 @@ Inside the file `/server/controllers/levelsController.js`, there are four method
 ### Match options object
 `currentLevel` is required. Other properties are optional.
 
-```json
+```
 currentLevel: Number
 play: Boolean
 fail: Boolean
@@ -55,6 +55,7 @@ success: Boolean
 ```
 _id: String, matchId
 open: Boolean, whether the match is still open
+<<<<<<< HEAD
 users: Array, [{
   username: String, name of user
   currentLevel: Number, the current level of the user
@@ -65,6 +66,12 @@ users: Array, [{
   won: Boolean, whether the user has won the game or not
 }]
 ```
+=======
+users: {
+  username: String, name of user
+  levelScore: Number, score on current level
+}
+>>>>>>> Update README.md
 
 ### GET to `/levels/:id`
 getLevel method will handle a GET request made to `/levels/:id`. As a response, a corresponding sequencer data for the id will be retrieved from the database.
