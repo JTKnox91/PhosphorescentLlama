@@ -1,4 +1,4 @@
-app.controller('NavController', [ '$scope', 'httpFactory', '$rootScope', '$location' , function ( $scope, httpFactory, $rootScope, $location ) {
+app.controller('NavController', [ '$scope', 'httpFactory', '$rootScope', '$state' , function ( $scope, httpFactory, $rootScope, $state ) {
 
   $scope.login = function ( ) {
 
@@ -12,7 +12,7 @@ app.controller('NavController', [ '$scope', 'httpFactory', '$rootScope', '$locat
 
         $rootScope.user.level = response.headers( 'level' );
 
-        $location.path( response.data );
+        $state.go('/game');
 
       }
 
@@ -32,7 +32,7 @@ app.controller('NavController', [ '$scope', 'httpFactory', '$rootScope', '$locat
 
       if( response.status === 200 ) {
 
-        $location.path( response.data );
+        $state.go('/game');
 
       }
 

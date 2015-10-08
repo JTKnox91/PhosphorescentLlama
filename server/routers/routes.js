@@ -26,35 +26,33 @@ module.exports = function( passport ) {
 
   router.post('/login', passport.authenticate('login', {
     failureRedirect: '/' // anonymous user view.
-  }), usersController.findUserById, function ( request, response ) {
-    response.status( 200 ).send( '/' );
+  }), usersController.findUserById, function (req, res) {
+    res.status(200).end();
   });
 
   /* Handle Signup POST */
 
   router.post( '/signup', passport.authenticate( 'signup', {
     failureRedirect: '/'
-  }), usersController.findUserById, function ( request, response ) {
-    response.status( 200 ).send( '/' );
+  }), usersController.findUserById, function (req, res) {
+    res.status(200).end();
   });
 
   /* Handle Logout */
   router.post('/logout', function( request, response ) {
     request.logout( );
-    response.status( 200 ).send( '/' );
+    response.status( 200 ).end();
   });
 
   /* Handle requests to '/users' */
 
-  router.get( '/users', usersController.findUserById, function ( request, response ) {
-
-    if( response.get( 'username' ) ) {
-      response.status( 200 ).send( '/' );
-    } else {
-      response.status( 200 ).send( '/' );
-    }
-
-  });
+  // router.get( '/users', usersController.findUserById, function ( request, response ) {
+  //   if( response.get( 'username' ) ) {
+  //     response.status( 200 ).send( '/' );
+  //   } else {
+  //     response.status( 200 ).send( '/' );
+  //   }
+  // });
 
   router.get( '/users/all', usersController.getUsers );
 
