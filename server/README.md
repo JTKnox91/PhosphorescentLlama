@@ -14,21 +14,38 @@ REST API:
 ### General
 Inside the file `/server/controllers/levelsController.js`, there are four methods; getLevel, saveLevel, updateLeve, and deleteLevel. They are exported and used as the server API.
 
-| Method | URL         | Purpose                  | Request Body         | Response Body     |
-|--------|-------------|--------------------------|----------------------|-------------------|
-| GET    | /match      | Get all matches for user | Empty                | Array of Matches  |
-| POST   | /match      | Create new chat          | JSON String          | matchId           |
-| GET    | /match/:id  | Get match details        | Empty                | Match info object |
-| UPDATE | /match/:id  | Update single match      | Match options object | Match info object |
+| Method | URL         | Purpose                  | Request Body         | Response Body     | httpFactory method |
+|--------|-------------|--------------------------|----------------------|-------------------|--------------------|
+| GET    | /match      | Get all matches for user | Empty                | Array of Matches  | getMatches         |
+| POST   | /match      | Create new chat          | JSON String          | matchId           | newMatch           |
+| GET    | /match/:id  | Get match details        | Empty                | Match info object | getMatch           |
+| UPDATE | /match/:id  | Update single match      | Match options object | Match info object | updateMatch        |
 
 ### Match options object
+`currentLevel` is required. Other properties are optional.
 
-```json
+```
 currentLevel: Number
 play: Boolean
 fail: Boolean
 forfeit: Boolean
-endLevel: Boolean
+success: Boolean
+```
+
+### Match info object
+
+```
+_id: String, matchId
+open: Boolean, whether the match is still open
+users: Array, [{
+  username: String, name of user
+  currentLevel: Number, the current level of the user
+  levelScore: Number, score on current level
+  totalScore: Number, total score for the match
+  plays: Number, number of replays of the sequence for the level
+  fails: Number, number of failed attempts at the game for the level
+  won: Boolean, whether the user has won the game or not
+}]
 ```
 
 ### GET to `/levels/:id`
