@@ -52,10 +52,15 @@
       </ul>
       <div class="user-info-group">
         <div class="nav navbar-right">
+
+
           <span id="space"></span>
           <div id="display-username" ng-init="getMatchInfo()">
 
             <h2>{{ user.username }}. Level: {{ user.level }}</h2>
+
+            <span> time: {{ minutes + ":" + seconds }} </span>
+          
             <span>Score: {{ user.totalScore }} </span><span>Score: {{ user.oppScore }} </span>
             <span>Plays: {{ user.plays }} </span>
             <span>Fails: {{ user.fails }} </span>
