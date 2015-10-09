@@ -1,6 +1,6 @@
 <div class="beat-box">
   <div
-    class="line inner _{{ $parent.$index }} {{ $index }}"
+    class="line inner _{{ $parent.$index }} {{ $index }} {{$index%2 === 0 ? 'on-beat' : 'off-beat'}}"
     ng-class="{ playing: sequencer.getBeat($parent.$index, $index).isOn( ) }"
   ></div>
 </div>
