@@ -10,12 +10,26 @@ matchController.getAllMatches = function(req, res) {
       res.status(404).send(err);
     } else {
       matches = matches.filter(function (match) {
+        if(!match.open){
+          return false;
+        }
         for (var i = 0; i < match.users.length; i++) {
           if(match.users[i].id._id.toString() === userId){
             return true;
           }
         }
         return false;
+      }).map(function (match) {
+        var result = {};
+        result._id = match._id;
+        for (var i = 0; i < match.users.length; i++) {
+          if (match.users[i].id._id.toString() !== userId){
+            result.opponent = match.users[i].id;
+          } else {
+            result.user = match.users[i].id;
+          }
+        }
+        return result;
       });
       res.status(200).send(matches);
     }
@@ -36,7 +50,7 @@ matchController.createMatch = function(req, res) {
   console.log(req.session.passport.user);
   console.log(req.body.otherId);
   Match.create({
-    open: false,
+    open: true,
     users: [
     {
       id: req.session.passport.user,
