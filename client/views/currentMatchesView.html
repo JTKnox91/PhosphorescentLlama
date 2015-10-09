@@ -1,6 +1,7 @@
-<div ng-init="refresh()">
+<div ng-controller="currentMatchesController" ng-init="refresh()">
   <h2>Your Matches</h2>
-  <input type="button" ng-click="refresh()">
+  <input type="button" value="Refresh" ng-click="refresh()">
+  <input type="button" value="New Match" ng-click="newMatch()">
   <ul>
     <li ng-repeat="match in matches">
       {{match}}

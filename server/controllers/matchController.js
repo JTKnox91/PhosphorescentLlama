@@ -4,25 +4,26 @@ var matchController = {};
 
 matchController.getAllMatches = function(req, res) {
   var userId = req.session.passport.user;
-  Match.find().$where(function () {
-    for (var i = 0; i < this.users.length; i++) {
-      if (this.users[i] === userId) {
-        return true;
-      }
-    }
-    return false;
-  }).populate('users.username')
+  Match.find().populate('users.id')
     .exec(function(err, matches) {
     if(err){
       res.status(404).send(err);
     } else {
+      matches = matches.filter(function (match) {
+        for (var i = 0; i < match.users.length; i++) {
+          if(match.users[i].id._id.toString() === userId){
+            return true;
+          }
+        }
+        return false;
+      });
       res.status(200).send(matches);
     }
   });
 };
 
 matchController.getMatchById = function(req, res) {
-  Match.find({_id: req.params.id}).populate('users.username', function(err, match) {
+  Match.find({_id: req.params.id}).populate('users.id', function(err, match) {
     if(err){
       res.status(404).send(err);
     } else {
@@ -31,7 +32,9 @@ matchController.getMatchById = function(req, res) {
   });
 };
 
-matchController.createMatch = function(req, res, next) {
+matchController.createMatch = function(req, res) {
+  console.log(req.session.passport.user);
+  console.log(req.body.otherId);
   Match.create({
     open: false,
     users: [
@@ -40,8 +43,8 @@ matchController.createMatch = function(req, res, next) {
       levelScore: 100,
       totalScore: 0,
       currentLevel: 1,
-      plays: false,
-      fails: false,
+      plays: 0,
+      fails: 0,
       won: false
     },
     {
@@ -49,12 +52,14 @@ matchController.createMatch = function(req, res, next) {
       levelScore: 100,
       totalScore: 0,
       currentLevel: 1,
-      plays: false,
-      fails: false,
+      plays: 0,
+      fails: 0,
       won: false
     }]
   }).then(function (match) {
-    req.status(201).send(match);
+    res.status(201).send(match);
+  }, function (err) {
+    res.status(500).send(err);
   });
 };
 

@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var MatchSchema = new mongoose.Schema({
+var matchSchema = new mongoose.Schema({
   open: Boolean,
   users: [{
     id: { type: mongoose.Schema.ObjectId, ref: 'User' },
@@ -13,4 +13,4 @@ var MatchSchema = new mongoose.Schema({
   }]
 });
 
-module.exports = mongoose.model('Match', MatchSchema);
+module.exports = mongoose.model('Match', matchSchema);

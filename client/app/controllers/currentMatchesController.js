@@ -1,9 +1,13 @@
-app.controller('currentMatchesController', ['httpFactory', function (httpFactory) {
+app.controller('currentMatchesController', ['httpFactory', '$state', '$scope', function (httpFactory, $state, $scope) {
   $scope.refresh = function () {
     httpFactory.getMatches()
       .then(function (data) {
         $scope.matches = data;
-        $scope.$apply();
       });
   };
+
+  $scope.newMatch = function () {
+    $state.go('/new-match');
+  };
+
 }]);
