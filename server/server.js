@@ -10,11 +10,11 @@ var mongoose = require('mongoose');
 var morgan = require('morgan');
 var port = process.env.PORT || 44100;
 var connectURI;
-// if( process.env ) {
-//   connectURI = process.env.MONGOLAB_URI;
-// } else {
+if( process.env ) {
+  connectURI = process.env.MONGOLAB_URI;
+} else {
   connectURI = 'mongodb://localhost/ngtzit';
-// }
+}
 
 mongoose.connect( connectURI );
 

@@ -37,7 +37,7 @@ matchController.getAllMatches = function(req, res) {
 };
 
 matchController.getMatchById = function(req, res) {
-  Match.find({_id: req.params.id}).populate('users.id', function(err, match) {
+  Match.findById(req.params.id).populate('users.id').exec( function(err, match) {
     if(err){
       res.status(404).send(err);
     } else {
@@ -99,7 +99,7 @@ matchController.updater = function(matchObject, req) {
 };
 
 matchController.updateMatch = function(req, res) {
-  Match.findById(req.params.id, function(err, match) {
+  Match.findById(req.params.id).populate("users.id").exec(function(err, match) {
     if(err){
       res.status(404).send(err);
     } else {

@@ -9,9 +9,9 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
   /////////////////
 
   if ( $rootScope.user ) {
-    $scope.level = $rootScope.user.level;
+    $rootScope.currentLevel = $rootScope.user.currentLevel;
   } else {
-    $scope.level = 1;
+    $rootScope.currentLevel = 1;
   }
   $rootScope.nextButtonText = 'Waiting on opponent';
   $rootScope.canGoToNext = false;
@@ -23,16 +23,17 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
   //
   /////////////////
 
-  $rootScope.startLevel = function ( ) {
-    $scope.getSequencer( );
-  };
 
-  $scope.getSequencer = function ( ) {
-    httpFactory.getSequencer( $scope.level, function ( data ) {
+  var getSequencer = $scope.getSequencer = function ( ) {
+    httpFactory.getSequencer( $rootScope.user.currentLevel, function ( data ) {
       $scope.$broadcast( 'createTargetSequencer', data );
       $scope.lastLevel = +data.headers( 'lastLevel' );
     });
 
+  };
+
+  $rootScope.startLevel = function ( ) {
+    getSequencer( );
   };
 
   $scope.playerSequencerPlayToggle = function ( ) {
@@ -57,25 +58,32 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
 
   $scope.playerWonLevel = function ( ) {
 
-    if( $scope.level !== $scope.lastLevel ) {
+    if( $rootScope.currentLevel !== $scope.lastLevel ) {
+      console.log('first if"')
       $scope.$emit( 'correctMatch' );
     }
-    if( $scope.level === $scope.lastLevel ) {
+    if( $rootScope.currentLevel === $scope.lastLevel ) {
       $scope.playerWonGame( );
+      console.log('second if');
     } else {
-      $scope.level++;
+      $rootScope.currentLevel++;
+      console.log('else');
       if( $rootScope.user ) {
-        $rootScope.user.level = $scope.level;
+        console.log('else if');
+        $rootScope.user.level = $rootScope.currentLevel;
         httpFactory.updateMatch($rootScope.currentMatchId, {
-          currentLevel: $scope.level
+          currentLevel: $rootScope.currentLevel
         })
         .then( function (matchInfo) {
-          var user = matchInfo.users.find(function (user) {
-            return user._id === $rootScope.userId;
-          });
-          var opp = matchInfo.users.find(function (user) {
-            return user._id !== $rootScope.userId;
-          });
+          console.log("Match info in .then of http.updateMatch", matchInfo);
+           var user = matchInfo.users.find(function (user) {
+             console.log("id from DB:", user.id._id.toString());
+             console.log("id from rtscope", $rootScope.user.id);
+             return user.id._id.toString() === $rootScope.user.id;
+           });
+           var opp = matchInfo.users.find(function (user) {
+             return user.id._id.toString() !== $rootScope.user.id;
+           });
           if(user.currentLevel <= opp.currentLevel) {
             // enable the button
             $rootScope.nextButtonText = 'Next Level';
@@ -93,7 +101,7 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
 
   $scope.playerWonGame = function( ) {
     if( $rootScope.user ) {
-      $rootScope.user.level = $scope.level;
+      $rootScope.user.level = $rootScope.currentLevel;
       httpFactory.updateLevel( $rootScope.user );
     }
 
@@ -146,13 +154,13 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
   //
   ////////////////////
 
-  initialize( $scope.startLevel );
+  // initialize( *$scope.startLevel* );
 
   
   //BELOW HERE ARE ALL TEMPORARY FUNCTIONS THAT WON'T BE NEEDED ONCE WE ARE RETRIEVING SOUNDS PROPERLY
   $scope.buildLevel = function ( ) {
 
-    var levelSettings = levelFactory[ $scope.level ];
+    var levelSettings = levelFactory[ $rootScope.currentLevel ];
 
     var levelSequencer = new Sequencer (
       levelSettings.tempo,
@@ -171,7 +179,7 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
 
     var savedSequencer = levelSequencer.save( );
 
-    httpFactory.postSequencer( $scope.level, savedSequencer, $scope.getSequencer );
+    httpFactory.postSequencer( $rootScope.currentLevel, savedSequencer, $scope.getSequencer );
 
   };
 

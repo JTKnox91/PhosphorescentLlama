@@ -1,4 +1,4 @@
-app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootScope', '$location', '$interval' , 'AuthFactory', function ( $state, $scope, httpFactory, $rootScope, $location, $interval, AuthFactory) {
+app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootScope', '$location', '$interval' , 'AuthFactory', 'initialize', function ( $state, $scope, httpFactory, $rootScope, $location, $interval, AuthFactory, initialize) {
   $scope.minutes = 0;
   $scope.seconds = '00';
 
@@ -39,7 +39,7 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
   $scope.submitMatch = function ( ) {
     $rootScope.$broadcast( 'submitMatch' );
     httpFactory.updateMatch($rootScope.currentMatchId, {
-      currentLevel: $rootscope.user.currentLevel,
+      currentLevel: $rootScope.user.currentLevel,
       fail: true // not necessarily true 
     })
     .then( function (res) {
@@ -63,21 +63,29 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
   };
 
   $scope.getMatchInfo = function () {
+    console.log("match info was retrieved");
+    console.log($rootScope.currentMatchId, "passed into httpfac getmatchinfo");
     httpFactory.getMatch($rootScope.currentMatchId)
     .then( function (matchInfo) {
       var user = matchInfo.users.find(function (user) {
-        return user._id === $rootScope.userId;
+        console.log("id from DB:", user.id._id.toString());
+        console.log("id from rtscope", $rootScope.user.id);
+        return user.id._id.toString() === $rootScope.user.id;
       });
       var opp = matchInfo.users.find(function (user) {
-        return user._id !== $rootScope.userId;
+        return user.id._id.toString() !== $rootScope.user.id;
       });
-      $scope.user.totalScore = matched.totalScore;
-      $scope.user.plays = matched.plays;
-      $scope.user.fail = matched.fails;
-      $scope.user.oppScore = opp.totalScore;
+      console.log("user", user);
+      console.log("opp", opp);
+      $rootScope.user.totalScore = user.totalScore;
+      $rootScope.user.plays = user.plays;
+      $rootScope.user.fail = user.fails;
+      $rootScope.user.currentLevel = user.currentLevel;
+      $rootScope.user.oppScore = opp.totalScore;
+      initialize($rootScope.startLevel);
     })
     .catch( function (error) {
-      console.error(error);
+      console.error("Error with httpFav.getMatch in scope.getMatchInfor", error);
     });
   };
 
