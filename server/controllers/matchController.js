@@ -77,9 +77,9 @@ matchController.createMatch = function(req, res) {
   });
 };
 
-matchController.updater = function(matchObject, req) {
+matchController.updater = function(matchObject, req, callback) {
   for (var i = 0; i < matchObject.users.length; i++) {
-    if (matchObject.users[i].id === req.session.passport.user){
+    if (matchObject.users[i].id._id.toString() === req.session.passport.user){
       matchObject.users[i].plays += req.body.play;
       matchObject.users[i].fails += req.body.fail;
       matchObject.users[i].levelScore -= (req.body.play * 5 + req.body.fail * 10);
@@ -95,7 +95,7 @@ matchController.updater = function(matchObject, req) {
     }
   }
   matchObject.open = !req.body.forfeit;
-  return matchObject;
+  callback(matchObject);
 };
 
 matchController.updateMatch = function(req, res) {
@@ -103,13 +103,14 @@ matchController.updateMatch = function(req, res) {
     if(err){
       res.status(404).send(err);
     } else {
-      match = matchController.updater(match, req);
-      match.save(function(err, match) {
-        if (err) {
-          res.status(404).send(err);
-        } else {
-          res.status(202).send(match);
-        }
+      match = matchController.updater(match, req, function (match) {
+        match.save(function(err, match) {
+          if (err) {
+            res.status(404).send(err);
+          } else {
+            res.status(202).send(match);
+          }
+        });
       });
     }
   });

@@ -38,16 +38,16 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
 
   $scope.submitMatch = function ( ) {
     $rootScope.$broadcast( 'submitMatch' );
-    httpFactory.updateMatch($rootScope.currentMatchId, {
-      currentLevel: $rootScope.user.currentLevel,
-      fail: true // not necessarily true 
-    })
-    .then( function (res) {
-      console.log('Success');
-    })
-    .catch( function (error) {
-      console.error(error);
-    });
+    // httpFactory.updateMatch($rootScope.currentMatchId, {
+    //   currentLevel: $rootScope.user.currentLevel
+    //   // fail: true // not necessarily true 
+    // })
+    // .then( function (res) {
+    //   console.log('Success');
+    // })
+    // .catch( function (error) {
+    //   console.error(error);
+    // });
   };
 
   $scope.playing = true;
@@ -81,6 +81,7 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
       $rootScope.user.plays = user.plays;
       $rootScope.user.fail = user.fails;
       $rootScope.user.currentLevel = user.currentLevel;
+      $rootScope.currentLevel = user.currentLevel;
       $rootScope.user.oppScore = opp.totalScore;
       initialize($rootScope.startLevel);
     })

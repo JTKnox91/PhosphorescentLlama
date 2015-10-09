@@ -44,7 +44,7 @@ app.factory( 'httpFactory', [ '$http', '$rootScope', function ( $http, $rootScop
 
   //TERRIBLY NAMED - THIS UPDATES A USER'S BEST LEVEL, NOT THE LEVEL ITSELF
   httpFact.updateLevel = function ( user, callback ) {
-    return $http.put( '/users', { username: user.username, level: user.level } )
+    return $http.put( '/users', { username: user.username, level: user.currentLevel } )
       .then( function ( res ) {
         if ( callback ) {
           callback( res );

@@ -9,12 +9,13 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
   /////////////////
 
   if ( $rootScope.user ) {
-    $rootScope.currentLevel = $rootScope.user.currentLevel;
+    $rootScope.currentLevel = Number($rootScope.user.currentLevel);
+    console.log($rootScope.user.currentLevel);
   } else {
     $rootScope.currentLevel = 1;
   }
   $rootScope.nextButtonText = 'Waiting on opponent';
-  $rootScope.canGoToNext = false;
+  $rootScope.canGoToNextLevel = true;
   /////////////////
   //
   //
@@ -33,7 +34,10 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
   };
 
   $rootScope.startLevel = function ( ) {
-    getSequencer( );
+    console.log("canGoToNextLevel:", $rootScope.canGoToNextLevel)
+    if ($rootScope.canGoToNextLevel) {
+      getSequencer( );
+    }
   };
 
   $scope.playerSequencerPlayToggle = function ( ) {
@@ -69,10 +73,13 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
       $rootScope.currentLevel++;
       console.log('else');
       if( $rootScope.user ) {
-        console.log('else if');
-        $rootScope.user.level = $rootScope.currentLevel;
+        console.log('Current Level:', $rootScope.currentLevel);
+        $rootScope.user.currentLevel = $rootScope.currentLevel;
         httpFactory.updateMatch($rootScope.currentMatchId, {
-          currentLevel: $rootScope.currentLevel
+          currentLevel: $rootScope.currentLevel,
+          play: false,
+          fail: false,
+          forfeit: false
         })
         .then( function (matchInfo) {
           console.log("Match info in .then of http.updateMatch", matchInfo);
@@ -87,10 +94,10 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
           if(user.currentLevel <= opp.currentLevel) {
             // enable the button
             $rootScope.nextButtonText = 'Next Level';
-            $rootScope.canGoToNext = true;
+            $rootScope.canGoToNextLevel = true;
           } else {
             $rootScope.nextButtonText = 'Waiting for opponent';
-            $rootScope.canGoToNext = false;
+            $rootScope.canGoToNextLevel = false;
           }
         // httpFactory.updateLevel( $rootScope.user );
       });
@@ -101,7 +108,7 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
 
   $scope.playerWonGame = function( ) {
     if( $rootScope.user ) {
-      $rootScope.user.level = $rootScope.currentLevel;
+      $rootScope.user.currentLevel = $rootScope.currentLevel;
       httpFactory.updateLevel( $rootScope.user );
     }
 
