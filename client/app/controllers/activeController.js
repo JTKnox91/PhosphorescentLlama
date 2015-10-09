@@ -27,9 +27,12 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
   $scope.playerSequencerPlayToggle = function ( ) {
     $rootScope.$broadcast( 'playToggle' );
     httpFactory.updateMatch($rootScope.currentMatchId, {
-      currentMatchId: $rootScope.user.currentLevel,
-      play: true
-    });
+      currentLevel: $rootScope.user.currentLevel,
+      play: true,
+      fail: false,
+      forfeit: false
+    })
+    .then( $rootScope.updateMatchInfo );
   };
 
   $scope.targetSequencerPlayToggle = function ( ) {
@@ -38,16 +41,6 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
 
   $scope.submitMatch = function ( ) {
     $rootScope.$broadcast( 'submitMatch' );
-    // httpFactory.updateMatch($rootScope.currentMatchId, {
-    //   currentLevel: $rootScope.user.currentLevel
-    //   // fail: true // not necessarily true 
-    // })
-    // .then( function (res) {
-    //   console.log('Success');
-    // })
-    // .catch( function (error) {
-    //   console.error(error);
-    // });
   };
 
   $scope.playing = true;
@@ -63,28 +56,8 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
   };
 
   $scope.getMatchInfo = function () {
-    console.log("match info was retrieved");
-    console.log($rootScope.currentMatchId, "passed into httpfac getmatchinfo");
     httpFactory.getMatch($rootScope.currentMatchId)
-    .then( function (matchInfo) {
-      var user = matchInfo.users.find(function (user) {
-        console.log("id from DB:", user.id._id.toString());
-        console.log("id from rtscope", $rootScope.user.id);
-        return user.id._id.toString() === $rootScope.user.id;
-      });
-      var opp = matchInfo.users.find(function (user) {
-        return user.id._id.toString() !== $rootScope.user.id;
-      });
-      console.log("user", user);
-      console.log("opp", opp);
-      $rootScope.user.totalScore = user.totalScore;
-      $rootScope.user.plays = user.plays;
-      $rootScope.user.fail = user.fails;
-      $rootScope.user.currentLevel = user.currentLevel;
-      $rootScope.currentLevel = user.currentLevel;
-      $rootScope.user.oppScore = opp.totalScore;
-      initialize($rootScope.startLevel);
-    })
+    .then( $rootScope.updateMatchInfo)
     .catch( function (error) {
       console.error("Error with httpFav.getMatch in scope.getMatchInfor", error);
     });
@@ -102,7 +75,9 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
   $scope.forfeitMatch = function () {
     httpFactory.updateMatch($rootScope.currentMatchId, {
       currentLevel: $rootScope.user.currentLevel,
-      forfeit: true
+      forfeit: true,
+      play: false,
+      fail: false
     })
     .then( function (matchInfo) {
       $scope.goToCurrentMatches();
@@ -111,5 +86,24 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
       console.error(error);
     });
   };  
+
+  $rootScope.updateMatchInfo = function (matchInfo) {
+      var user = matchInfo.users.find(function (user) {
+        return user.id._id.toString() === $rootScope.user.id;
+      });
+      var opp = matchInfo.users.find(function (user) {
+        return user.id._id.toString() !== $rootScope.user.id;
+      });
+      $rootScope.user.levelScore = user.levelScore;
+      $rootScope.user.plays = user.plays;
+      $rootScope.user.fails = user.fails;
+      $rootScope.user.currentLevel = user.currentLevel;
+      $rootScope.currentLevel = user.currentLevel;
+      $rootScope.user.oppScore = opp.levelScore;
+      $rootScope.user.username = user.id.username;
+      initialize($rootScope.startLevel);
+  };
+
+  $interval($scope.getMatchInfo, 1000);
 
 }]);

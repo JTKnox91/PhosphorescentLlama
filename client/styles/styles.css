@@ -41,6 +41,9 @@ h2 {
 
 }
 
+td {
+  font-size: 25px;
+}
 
 /* play contols */
 
@@ -102,6 +105,8 @@ h2 {
 #display-username {
 
   margin-right: 15px;
+  color: #FFFFFF;
+  float: left;
 
 }
 

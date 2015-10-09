@@ -85,6 +85,7 @@ matchController.updater = function(matchObject, req, callback) {
       matchObject.users[i].levelScore -= (req.body.play * 5 + req.body.fail * 10);
 
       if(matchObject.users[i].currentLevel !== req.body.currentLevel) {
+        console.log('got in here');
         matchObject.users[i].totalScore += matchObject.users[i].levelScore;
         matchObject.users[i].currentLevel = req.body.currentLevel;
         matchObject.users[i].levelScore = 100 + req.body.currentLevel * 20;

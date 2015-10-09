@@ -37,10 +37,7 @@
         <li ng-click="startLevel()">
           <a href="#">
           <span class="glyphicon">
-            <span class="glyphicon-ok" aria-hidden="true"><br>
-              <span class="glyphicon-text">{{ nextButtonText }}
-              </span>
-            </span>
+            <span class="glyphicon-share-alt" aria-hidden="true"></span>
           </span>
           </a>
         </li>
@@ -67,11 +64,11 @@
           <span id="space"></span>
           <div id="display-username" ng-init="getMatchInfo()">
 
-            <h2>{{ user.username }}. Level: {{ user.currentLevel }}</h2>
+            <h2 style="right: 100%">{{ user.username }}. Level: {{ user.currentLevel }}</h2>
 
             <span> time: {{ minutes + ":" + seconds }} </span>
           
-            <span>Score: {{ user.totalScore }} </span><span>Score: {{ user.oppScore }} </span>
+            <span>Score: {{ user.levelScore }} </span><span>Opponent Score: {{ user.oppScore }} </span>
             <span>Plays: {{ user.plays }} </span>
             <span>Fails: {{ user.fails }} </span>
 

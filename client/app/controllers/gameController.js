@@ -34,7 +34,7 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
   };
 
   $rootScope.startLevel = function ( ) {
-    console.log("canGoToNextLevel:", $rootScope.canGoToNextLevel)
+    console.log("canGoToNextLevel:", $rootScope.canGoToNextLevel);
     if ($rootScope.canGoToNextLevel) {
       getSequencer( );
     }
@@ -63,17 +63,13 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
   $scope.playerWonLevel = function ( ) {
 
     if( $rootScope.currentLevel !== $scope.lastLevel ) {
-      console.log('first if"')
       $scope.$emit( 'correctMatch' );
     }
     if( $rootScope.currentLevel === $scope.lastLevel ) {
       $scope.playerWonGame( );
-      console.log('second if');
     } else {
       $rootScope.currentLevel++;
-      console.log('else');
       if( $rootScope.user ) {
-        console.log('Current Level:', $rootScope.currentLevel);
         $rootScope.user.currentLevel = $rootScope.currentLevel;
         httpFactory.updateMatch($rootScope.currentMatchId, {
           currentLevel: $rootScope.currentLevel,
@@ -82,10 +78,7 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
           forfeit: false
         })
         .then( function (matchInfo) {
-          console.log("Match info in .then of http.updateMatch", matchInfo);
            var user = matchInfo.users.find(function (user) {
-             console.log("id from DB:", user.id._id.toString());
-             console.log("id from rtscope", $rootScope.user.id);
              return user.id._id.toString() === $rootScope.user.id;
            });
            var opp = matchInfo.users.find(function (user) {
@@ -118,6 +111,17 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
 
   $scope.failedMatch = function ( ) {
     $scope.$emit( 'notAMatch' );
+    httpFactory.updateMatch($rootScope.currentMatchId, {
+      currentLevel: $rootScope.currentLevel,
+      play: false,
+      fail: true,
+      forfeit: false
+    })
+    .then($rootScope.updateMatchInfo)
+    .catch( function (error) {
+      console.error(error);
+    });
+    
   };
 
   /////////////////
