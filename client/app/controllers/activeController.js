@@ -75,7 +75,9 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
   $scope.forfeitMatch = function () {
     httpFactory.updateMatch($rootScope.currentMatchId, {
       currentLevel: $rootScope.user.currentLevel,
-      forfeit: true
+      forfeit: true,
+      play: false,
+      fail: false
     })
     .then( function (matchInfo) {
       $scope.goToCurrentMatches();
@@ -92,12 +94,16 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
       var opp = matchInfo.users.find(function (user) {
         return user.id._id.toString() !== $rootScope.user.id;
       });
-      $rootScope.user.totalScore = user.totalScore;
+      $rootScope.user.levelScore = user.levelScore;
       $rootScope.user.plays = user.plays;
       $rootScope.user.fails = user.fails;
       $rootScope.user.currentLevel = user.currentLevel;
       $rootScope.currentLevel = user.currentLevel;
-      $rootScope.user.oppScore = opp.totalScore;
+      $rootScope.user.oppScore = opp.levelScore;
+      $rootScope.user.username = user.id.username;
       initialize($rootScope.startLevel);
   };
+
+  $interval($scope.getMatchInfo, 1000);
+
 }]);

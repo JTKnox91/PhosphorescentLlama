@@ -72,7 +72,10 @@ app.controller( 'GameController' , [ '$scope', 'playerSequencer', 'httpFactory',
       if( $rootScope.user ) {
         $rootScope.user.currentLevel = $rootScope.currentLevel;
         httpFactory.updateMatch($rootScope.currentMatchId, {
-          currentLevel: $rootScope.currentLevel
+          currentLevel: $rootScope.currentLevel,
+          play: false,
+          fail: false,
+          forfeit: false
         })
         .then( function (matchInfo) {
            var user = matchInfo.users.find(function (user) {

@@ -37,10 +37,7 @@
         <li ng-click="startLevel()">
           <a href="#">
           <span class="glyphicon">
-            <span class="glyphicon-share-alt" aria-hidden="true"><br>
-              <span class="glyphicon-text">{{ nextButtonText }}
-              </span>
-            </span>
+            <span class="glyphicon-share-alt" aria-hidden="true"></span>
           </span>
           </a>
         </li>
@@ -71,7 +68,7 @@
 
             <span> time: {{ minutes + ":" + seconds }} </span>
           
-            <span>Score: {{ user.totalScore }} </span><span>Opponent Score: {{ user.oppScore }} </span>
+            <span>Score: {{ user.levelScore }} </span><span>Opponent Score: {{ user.oppScore }} </span>
             <span>Plays: {{ user.plays }} </span>
             <span>Fails: {{ user.fails }} </span>
 
