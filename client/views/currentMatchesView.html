@@ -4,7 +4,7 @@
   <input type="button" value="New Match" ng-click="newMatch()">
   <ul>
     <li ng-repeat="match in matches">
-      {{match}}
+      <a ng-click="goToMatch(match._id)">{{match.opponent.username}}</a> Opponent Level: {{match.opponent.currentLevel}}, My Level: {{match.user.currentLevel}}
     </li>
   </ul>
 </div>

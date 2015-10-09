@@ -22,10 +22,11 @@ matchController.getAllMatches = function(req, res) {
       }).map(function (match) {
         var result = {};
         result._id = match._id;
-        result.users = match.users;
         for (var i = 0; i < match.users.length; i++) {
           if (match.users[i].id._id.toString() !== userId){
             result.opponent = match.users[i].id;
+          } else {
+            result.user = match.users[i].id;
           }
         }
         return result;
