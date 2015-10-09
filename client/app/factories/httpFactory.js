@@ -88,7 +88,7 @@ app.factory( 'httpFactory', [ '$http', '$rootScope', function ( $http, $rootScop
   httpFact.newMatch = function (otherId) {
     return $http.post('/match', {otherId: otherId})
       .then(function (res) {
-        return res.data;
+        return res.data.matchId;
       });
   };
 

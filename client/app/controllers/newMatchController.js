@@ -14,7 +14,6 @@ $scope.challenge = function (user) {
 
 $scope.getUsers = function () {
   httpFactory.getAllUsers().then(function (users) {
-    console.log($rootScope.userId);
     $scope.users = users;
   });
 };
