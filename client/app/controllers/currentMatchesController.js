@@ -6,6 +6,10 @@ app.controller('currentMatchesController', ['httpFactory', '$state', '$scope', f
       });
   };
 
+  $scope.goToMatch = function (matchId) {
+
+  };
+
   $scope.newMatch = function () {
     $state.go('/new-match');
   };
