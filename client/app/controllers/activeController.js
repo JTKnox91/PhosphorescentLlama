@@ -1,4 +1,11 @@
 app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootScope', '$location', '$interval' , 'AuthFactory', 'initialize', function ( $state, $scope, httpFactory, $rootScope, $location, $interval, AuthFactory, initialize) {
+
+  var initializeOnce = _.once(function () {
+    initialize($rootScope.startLevel);
+  });
+
+  $rootScope.sequencerIsInitialized = false;
+
   $scope.minutes = 0;
   $scope.seconds = '00';
 
@@ -101,8 +108,12 @@ app.controller( 'ActiveController', ['$state', '$scope', 'httpFactory', '$rootSc
       $rootScope.currentLevel = user.currentLevel;
       $rootScope.user.oppScore = opp.levelScore;
       $rootScope.user.username = user.id.username;
-      initialize($rootScope.startLevel);
+      if(!($rootScope.sequencerIsInitialized)) {
+        initialize($rootScope.startLevel);
+        $rootScope.sequencerIsInitialized = true;
+      } 
   };
+
 
   $interval($scope.getMatchInfo, 1000);
 
