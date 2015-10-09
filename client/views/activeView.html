@@ -34,7 +34,7 @@
             <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
           </a>
         </li>
-        <li ng-click="canGoToNextLevel && startLevel()">
+        <li ng-click="startLevel()">
           <a href="#">
           <span class="glyphicon">
             <span class="glyphicon-ok" aria-hidden="true"><br>
@@ -67,7 +67,7 @@
           <span id="space"></span>
           <div id="display-username" ng-init="getMatchInfo()">
 
-            <h2>{{ user.username }}. Level: {{ user.level }}</h2>
+            <h2>{{ user.username }}. Level: {{ user.currentLevel }}</h2>
 
             <span> time: {{ minutes + ":" + seconds }} </span>
           

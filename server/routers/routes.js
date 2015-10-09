@@ -45,7 +45,7 @@ module.exports = function( passport ) {
   });
 
   /* Handle requests to '/users' */
-  router.get( '/users', usersController.findUserById, function ( request, response ) {
+  router.get( '/auth', usersController.findUserById, function ( request, response ) {
       response.status( 200 ).send();
   });
 
