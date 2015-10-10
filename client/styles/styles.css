@@ -20,7 +20,9 @@ h2 {
 
 }
 
-
+.button {
+  color: purple;
+}
 /* user and level text property */
 
 #user-name-level {

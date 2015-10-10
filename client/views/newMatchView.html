@@ -10,7 +10,7 @@
     <header>New Game</header>
 
     <input ng-model="search.username" type="text">
-    <input type='submit' value="current matches" ng-click="newMatch()">
+    <input class="button" type='submit' value="current matches" ng-click="newMatch()">
     
     <table> 
       <tr ng-repeat="user in users | filter:search">
